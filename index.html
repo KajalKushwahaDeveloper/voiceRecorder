@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet/css" href="index.css">
+  <title>Audio Recorder</title>
+  <style>
+    .main_div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .audio_recorder_div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      width: 600px;
+      height: 300px;
+      box-shadow: 0 4px 8px rgba(50, 50, 50, 0.3);
+    }
+
+    .floating-button:active {
+      background-color: red;
+    }
+
+    .floating-button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 16px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .floating-button i {
+      font-size: 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main_div">
+    <div class="audio_recorder_div">
+      <button class="floating-button" id="recordButton">
+        <i class="fa fa-microphone"></i>
+      </button>
+      <div id="audioContainer"></div>
+    </div>
+  </div>
+  <!-- <script src="main.js"></script> -->
+  <script>
+    let mediaRecorder;
+    let recordedChunks = [];
+    let recordButton;
+    let audioContainer;
+
+    // Check browser compatibility
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      alert("getUserMedia is not supported in this browser");
+      console.error("getUserMedia is not supported in this browser");
+    } else {
+      recordButton = document.getElementById("recordButton");
+      audioContainer = document.getElementById("audioContainer");
+
+      recordButton.addEventListener("mousedown", startRecording);
+      recordButton.addEventListener("mouseup", stopRecording);
+      recordButton.addEventListener("mouseleave", stopRecording);
+    }
+
+    function startRecording() {
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((stream) => {
+          mediaRecorder = new MediaRecorder(stream);
+          mediaRecorder.addEventListener("dataavailable", (event) => {
+            recordedChunks.push(event.data);
+          });
+          mediaRecorder.start();
+          recordButton.classList.add("recording");
+        })
+        .catch((error) => {
+          console.error("Error accessing microphone:", error);
+        });
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+        recordButton.classList.remove("recording");
+
+        mediaRecorder.addEventListener("stop", () => {
+          const audioBlob = new Blob(recordedChunks, { type: "audio/wav" });
+          const audioUrl = URL.createObjectURL(audioBlob);
+          const audioElement = document.createElement("audio");
+          audioElement.controls = true;
+          audioElement.src = audioUrl;
+          audioContainer.appendChild(audioElement);
+
+          recordedChunks = [];
+        });
+      }
+    }
+  </script>
+</body>
+
+</html>
