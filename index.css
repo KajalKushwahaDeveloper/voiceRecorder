@@ -1,33 +1,59 @@
-.main_div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .audio_recorder_div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    width: 600px;
-    height: 300px;
-    box-shadow: 0 4px 8px rgba(50, 50, 50, 0.3);
-  }
-
-  .floating-button:active {
-    background-color: red;
-  }
-
-  .floating-button {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    padding: 16px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-  }
-
-  .floating-button i {
-    font-size: 24px;
-  }
+    /* CSS Reset */
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+    }
+    
+    /* Add your custom styles here */
+    .main_div {
+      text-align: center;
+      margin-top: 100px;
+    }
+    
+    .audio_recorder_div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap:20px;
+    }
+    
+    .floating-button {
+      width: 60px;
+      height: 60px;
+      background-color: #007bff;
+      border-radius: 50%;
+      border: none;
+      color: #fff;
+      font-size: 24px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .floating-button i {
+      /* margin-top: 28px; */
+      font-size: 20px;
+    }
+    
+    #audioContainer {
+      margin-top: 20px;
+    }
+    
+    .recording {
+      background-color: #dc3545;
+    }
+ 

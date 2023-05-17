@@ -50,6 +50,7 @@
       }
 
       function startRecording() {
+        console.log("start recoding ::");
         navigator.mediaDevices
           .getUserMedia({ audio: true })
           .then((stream) => {
@@ -66,6 +67,7 @@
       }
 
       function stopRecording() {
+        console.log("stop recording ");
         if (mediaRecorder && mediaRecorder.state !== "inactive") {
           mediaRecorder.stop();
           recordButton.classList.remove("recording");
@@ -76,6 +78,7 @@
             const audioElement = document.createElement("audio");
             audioElement.controls = true;
             audioElement.src = audioUrl;
+
             audioContainer.appendChild(audioElement);
 
             recordedChunks = [];
